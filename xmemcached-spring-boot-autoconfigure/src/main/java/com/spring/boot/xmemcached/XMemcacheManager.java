@@ -81,7 +81,6 @@ public class XMemcacheManager implements FactoryBean<Manager> {
      */
     public static final String MUTEX_KEY_PREFIX = "MUTEX_";
 
-    @Slf4j
     class Manager implements IManager {
 
         @Override
