@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.spring.boot.XmemcachedAutoconfigure
+  com.spring.boot.XmemcachedAutoConfiguration

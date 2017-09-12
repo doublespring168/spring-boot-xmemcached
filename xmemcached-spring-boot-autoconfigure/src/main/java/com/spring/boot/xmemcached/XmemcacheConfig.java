@@ -1,4 +1,4 @@
-package com.spring.boot;
+package com.spring.boot.xmemcached;
 
 import lombok.Data;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;

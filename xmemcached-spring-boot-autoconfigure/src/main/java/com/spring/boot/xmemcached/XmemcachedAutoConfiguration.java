@@ -1,4 +1,4 @@
-package com.spring.boot;
+package com.spring.boot.xmemcached;
 
 import java.io.IOException;
 
@@ -9,6 +9,7 @@ import net.rubyeye.xmemcached.XMemcachedClientBuilder;
 import net.rubyeye.xmemcached.auth.AuthInfo;
 import net.rubyeye.xmemcached.command.BinaryCommandFactory;
 import net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator;
+import net.rubyeye.xmemcached.transcoders.SerializingTranscoder;
 import net.rubyeye.xmemcached.utils.AddrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -34,14 +35,20 @@ public class XmemcachedAutoConfiguration {
     public MemcachedClient createClient() throws IOException {
         MemcachedClientBuilder builder = new XMemcachedClientBuilder(AddrUtil
             .getAddresses(config.getServers()));
-        builder.setSessionLocator(new KetamaMemcachedSessionLocator());
+
         builder.setConnectionPoolSize(config.getPoolSize());
         if(StringUtils.hasText(config.getUserName())&&StringUtils.hasText(config.getPassword())){
             builder.addAuthInfo(AddrUtil.getOneAddress(config.getServers()), AuthInfo
                 .typical(config.getUserName(), config.getPassword()));
         }
         builder.setFailureMode(true);
+        builder.setSessionLocator(new KetamaMemcachedSessionLocator());
         builder.setCommandFactory(new BinaryCommandFactory());
+        // 使用序列化传输编码
+        builder.setTranscoder(new SerializingTranscoder());
+        // 进行数据压缩，大于1KB时进行压缩
+        builder.getTranscoder().setCompressionThreshold(1024);
+
         MemcachedClient client = builder.build();
         client.setConnectTimeout(config.getConnectionTimeOut());
         client.setOpTimeout(config.getOpTimeOut());
