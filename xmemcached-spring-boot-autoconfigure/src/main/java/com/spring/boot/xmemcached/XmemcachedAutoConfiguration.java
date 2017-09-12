@@ -12,7 +12,6 @@ import net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator;
 import net.rubyeye.xmemcached.transcoders.SerializingTranscoder;
 import net.rubyeye.xmemcached.utils.AddrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +22,6 @@ import org.springframework.util.StringUtils;
  * @create 2017-09-11 下午6:33
  **/
 @Configuration
-@ConditionalOnBean(XmemcacheConfig.class)
 @EnableConfigurationProperties(XmemcacheConfig.class)
 @Slf4j
 public class XmemcachedAutoConfiguration {
@@ -31,7 +29,6 @@ public class XmemcachedAutoConfiguration {
     @Autowired
     private XmemcacheConfig config;
 
-    @Bean
     public MemcachedClient createClient() throws IOException {
         MemcachedClientBuilder builder = new XMemcachedClientBuilder(AddrUtil
             .getAddresses(config.getServers()));
@@ -54,6 +51,12 @@ public class XmemcachedAutoConfiguration {
         client.setOpTimeout(config.getOpTimeOut());
         client.setPrimitiveAsString(true);
         return client;
+    }
+
+
+    @Bean
+    public XMemcacheManager createManager() throws IOException {
+        return new XMemcacheManager(createClient());
     }
 
 }
