@@ -13,6 +13,7 @@ import net.rubyeye.xmemcached.transcoders.SerializingTranscoder;
 import net.rubyeye.xmemcached.utils.AddrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +24,7 @@ import org.springframework.util.StringUtils;
  * @create 2017-09-11 下午6:33
  **/
 @Configuration
-@ConditionalOnBean(XmemcacheConfig.class)
+@ConditionalOnExpression("'${memcached.servers}'.length() > 0")
 @EnableConfigurationProperties(XmemcacheConfig.class)
 @Slf4j
 public class XmemcachedAutoConfiguration {

@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
  * @author Liu Hailin
  * @create 2017-09-11 下午6:39
  **/
-@ConditionalOnExpression("'${memcached.servers}'.length() > 0")
 @Configuration
 @ConfigurationProperties(
     prefix = "memcached"
