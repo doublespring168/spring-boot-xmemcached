@@ -12,7 +12,6 @@ import net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator;
 import net.rubyeye.xmemcached.transcoders.SerializingTranscoder;
 import net.rubyeye.xmemcached.utils.AddrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -38,8 +37,9 @@ public class XmemcachedAutoConfiguration {
 
         builder.setConnectionPoolSize(config.getPoolSize());
         if(StringUtils.hasText(config.getUserName())&&StringUtils.hasText(config.getPassword())){
+            log.info( "[MemcachedClient]---server:{},username:{},password:{}",config.getServers(), config.getUserName(),config.getPassword());
             builder.addAuthInfo(AddrUtil.getOneAddress(config.getServers()), AuthInfo
-                .typical(config.getUserName(), config.getPassword()));
+                .plain(config.getUserName(), config.getPassword()));
         }
         builder.setFailureMode(true);
         builder.setSessionLocator(new KetamaMemcachedSessionLocator());
