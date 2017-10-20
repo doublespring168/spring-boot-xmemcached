@@ -34,11 +34,29 @@ public class XMemcacheManager implements IManager {
     }
 
     enum ExpiredTimeEnum {
+        /**
+         * 分钟
+         */
         MINUTE(60),
+        /**
+         * 小时
+         */
         HOUR(3600),
+        /**
+         * 天
+         */
         DAY(3600 * 24),
+        /**
+         * 周
+         */
         WEEK(3600 * 24 * 7),
+        /**
+         * 月
+         */
         MONTH(3600 * 24 * 30 * 7),
+        /**
+         * 永久
+         */
         FOREVER(0);
 
         private int time;
