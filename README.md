@@ -1,6 +1,13 @@
 # spring-boot-xmemcached
 spring boot starter
-
+## 依赖
+```xml
+        <dependency>
+            <groupId>com.spring.boot</groupId>
+            <artifactId>xmemcached-sprint-boot-starter</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+```
 ## 配置
 ```xml
 #memcached
