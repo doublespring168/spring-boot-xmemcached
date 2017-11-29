@@ -12,6 +12,7 @@ import net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator;
 import net.rubyeye.xmemcached.transcoders.SerializingTranscoder;
 import net.rubyeye.xmemcached.utils.AddrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +24,7 @@ import org.springframework.util.StringUtils;
  * @create 2017-09-11 下午6:33
  **/
 @Configuration
-@ConditionalOnExpression("'${memcached.servers}'.size() > 0")
+@ConditionalOnBean(XmemcacheConfig.class)
 @EnableConfigurationProperties(XmemcacheConfig.class)
 @Slf4j
 public class XmemcachedAutoConfiguration {
