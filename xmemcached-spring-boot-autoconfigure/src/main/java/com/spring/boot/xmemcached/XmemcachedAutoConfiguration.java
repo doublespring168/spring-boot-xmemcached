@@ -23,7 +23,7 @@ import org.springframework.util.StringUtils;
  * @create 2017-09-11 下午6:33
  **/
 @Configuration
-@ConditionalOnExpression("'${memcached.servers}'.length() > 0")
+@ConditionalOnExpression("'${memcached.servers}'.size() > 0")
 @EnableConfigurationProperties(XmemcacheConfig.class)
 @Slf4j
 public class XmemcachedAutoConfiguration {
