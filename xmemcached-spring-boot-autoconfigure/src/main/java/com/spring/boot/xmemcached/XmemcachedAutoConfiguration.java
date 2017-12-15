@@ -14,6 +14,7 @@ import net.rubyeye.xmemcached.utils.AddrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +27,7 @@ import org.springframework.util.StringUtils;
 @Configuration
 @ConditionalOnBean(XmemcacheConfig.class)
 @EnableConfigurationProperties(XmemcacheConfig.class)
+@ConditionalOnProperty(prefix = "memcached",name = "enable",value = "true")
 @Slf4j
 public class XmemcachedAutoConfiguration {
 
