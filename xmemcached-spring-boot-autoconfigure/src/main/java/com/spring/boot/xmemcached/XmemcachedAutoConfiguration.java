@@ -25,7 +25,6 @@ import org.springframework.util.StringUtils;
  * @create 2017-09-11 下午6:33
  **/
 @Configuration
-@ConditionalOnBean(XmemcacheConfig.class)
 @EnableConfigurationProperties(XmemcacheConfig.class)
 @ConditionalOnProperty(prefix = "memcached",name = "enable",value = "true")
 @Slf4j
