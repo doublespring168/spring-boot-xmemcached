@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(
     prefix = "memcached"
 )
-@ConditionalOnExpression("'${memcached.servers}'.length() > 0")
 @Data
 public class XmemcacheConfig {
 
